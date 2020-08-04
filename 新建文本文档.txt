@@ -1,0 +1,36 @@
+{
+  "setting": {
+    "daemon": true
+  },
+  "tun": {
+    "name": "tun3",
+    "address": "192.168.66.1",
+    "netmask": "255.255.255.0",
+    "mtu": 1500,
+    "path": "/dev/net/tun"
+  },
+  "listen": {
+    "address": "kdtest.f3322.net",
+    "port": 7777,
+    "password": "gql119871123",
+    "timeout": 60
+  }
+}
+
+
+sudo bash -c "echo 1 >/proc/sys/net/ipv4/ip_forward"
+sudo iptables -t nat -I POSTROUTING -s 192.168.66.1/24 ! -d 192.168.66.1/24 -j MASQUERADE
+
+src/gz openwrt_core https://openwrt.proxy.ustclug.org/snapshots/targets/ramips/mt7621/packages
+国内源  http://mirrors.ustc.edu.cn/lede/releases/18.06.4/targets/x86/64/packages
+第三步：使用xshell连接路由器，连接上后直接输入命令/opt/v2/v2ctl config /opt/v2/config.json > /opt/v2/config.pb回车，这一步是生成.pb格式的配置文件
+
+
+第四步：输入命令/opt/v2/v2ray --config=/opt/v2/config.pb > /dev/null 2>&1 & 回车启动v2并后台运行。
+
+
+
+
+
+
+d27d59fe-d310-11ea-8288-02fcdc4e7412
